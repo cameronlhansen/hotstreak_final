@@ -63,7 +63,7 @@ class GamesController < ApplicationController
   def edit
     @game = Game.find(params[:id])
 
-    @time = Time.now.yesterday.strftime("%Y/%m/%d")
+    @time = Time.now.strftime("%Y/%m/%d")
 
     schedule_url = 'http://api.sportradar.us/nba-t3/games/'+@time+'/schedule.json?api_key=vrgybsrq65r96gd242nhqyk2'
 

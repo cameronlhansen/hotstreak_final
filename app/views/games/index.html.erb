@@ -152,10 +152,7 @@
 
     <%if game.final_favorite_score == nil && game.game_date < Date.today %>
                 <a href="/games/update_score/<%= game.id %>" class="btn btn-block  btn-danger">Update Score</a>
-    <% else %>
-                <a href="/games/<%= game.id %>/edit" class="btn btn-block  btn-default">Update Game Details</a>
     <%end%>
-                <a href="/delete_game/<%= game.id %>" class="btn btn-block btn-default" rel="nofollow">Delete Game</a>
               </td>
             </tr>
             <% end %>

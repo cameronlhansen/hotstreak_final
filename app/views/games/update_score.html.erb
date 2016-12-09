@@ -39,15 +39,14 @@
 
 
       <!-- Label and input for home_team_id -->
-      <% select_tag(:favorite_id, options_from_collection_for_select(Team.all, :id, :name, @game.favorite_id)) %>
+      <input type="hidden" id="favorite_id" name="favorite_id" placeholder="Favorite ID" class="form-control" value="<%= @game.favorite_id %>">
 
 
         <!-- Label and input for away_team_id -->
-          <% select_tag(:underdog_id, options_from_collection_for_select(Team.all, :id, :name, @game.underdog_id)) %>
+        <input type="hidden" id="underdog_id" name="underdog_id" placeholder="Underdog ID" class="form-control" value="<%= @game.underdog_id %>">
 
           <!-- Label and input for home_team_id -->
-
-            <% select_tag(:home_team_id, options_from_collection_for_select(Team.all, :id, :name, @game.home_team_id)) %>
+          <input type="hidden" id="home_team_id" name="home_team_id" placeholder="home team id" class="form-control" value="<%= @game.home_team_id %>">
 
             <!-- Label and input for spread -->
               <input type="hidden" id="spread" name="spread" placeholder="Spread" class="form-control" value="<%= @game.spread %>">
@@ -79,7 +78,7 @@
           </form>
         </div>
 
-        
+
 <div class="col-md-2"> </div>
         <div class="col-md-6">
 

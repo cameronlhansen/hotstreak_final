@@ -1,0 +1,112 @@
+<!-- Validation failure messages -->
+<% if @game.errors.any? %>
+<% @game.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
+<% end %>
+
+
+
+<div class="row">
+<div class="col-md-4">
+<div class="page-header">
+  <h3>Add A Game to Pick</h3>
+</div>
+
+
+
+    <form action="/create_game" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for date_time -->
+      <div class="form-group">
+        <label for="game_date" class="control-label">
+          Date
+        </label>
+
+        <input type="date" id="game_date" name="game_date" placeholder="Date" class="form-control" value="<%= @game.game_date %>">
+      </div>
+
+      <!-- Label and input for time -->
+      <div class="form-group">
+        <label for="game_time" class="control-label">
+          Time
+        </label>
+
+        <input type="time" id="game_time" name="game_time" placeholder="Time" class="form-control" value="<%= @game.game_time %>">
+      </div>
+
+
+
+      <!-- Label and input for home_team_id -->
+      <div class="form-group">
+        <label for="favorite_id">
+          Favorite
+        </label>
+        <%= select_tag(:favorite_id, options_from_collection_for_select(Team.order(:name).all, :id, :name, @game.favorite_id)) %>      </div>
+
+
+        <!-- Label and input for away_team_id -->
+        <div class="form-group">
+          <label for="underdog_id">
+            Underdog
+          </label>
+          <%= select_tag(:underdog_id, options_from_collection_for_select(Team.order(:name).all, :id, :name, @game.underdog_id)) %>      </div>
+
+
+          <!-- Label and input for home_team_id -->
+          <div class="form-group">
+            <label for="home_team_id">
+              Home team
+            </label>
+            <%= select_tag(:home_team_id, options_from_collection_for_select(Team.order(:name).all, :id, :name, @game.home_team_id)) %>      </div>
+
+            <!-- Label and input for spread -->
+            <div class="form-group">
+              <label for="spread" class="control-label">
+                <a target="_blank" href="http://www.vegasinsider.com/nba/odds/las-vegas/">Spread (click for Vegas lines)</a>
+              </label>
+
+              <input type="text" id="spread" name="spread" placeholder="Spread" class="form-control" value="<%= @game.spread %>">
+            </div>
+
+            <!-- Label and input for final_home_score -->
+
+            <!-- Label and input for final_away_score -->
+
+            <button class="btn btn-success">
+              Create Game
+            </button>
+            or
+            <a href="/games">Cancel</a>
+          </form>
+        </div>
+
+        <div class="col-md-8">
+          <div class="page-header"><h3><i>Tonight's Games</i><h3></div>
+
+          <table class="table table-striped table-hover">
+            <tr>
+              <th>Home</th>
+              <th>Away</th>
+              <th>Time (EST)</th>
+            </tr>
+            <% @api_games.each do |api_game|%>
+            <tr>
+              <td><%= api_game["home"]["name"] %></td>
+              <td><%= api_game["away"]["name"] %></td>
+              <td><% time = DateTime.parse(api_game["scheduled"]).new_offset('+19:00')%> <%=time.strftime('%I:%M %p')%></td>
+            </tr>
+            <% end %>
+          </table>
+        </div>
+
+
+      </div>
+
+
+    </div>

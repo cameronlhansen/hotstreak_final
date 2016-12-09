@@ -1,0 +1,55 @@
+<!-- Validation failure messages -->
+<% if @pick.errors.any? %>
+  <% @pick.errors.full_messages.each do |message| %>
+    <div class="alert alert-dismissable alert-danger">
+      <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+      <%= message %>
+    </div>
+  <% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Add Pick</h3>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <form action="/create_pick" method="post">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <div class="form-group">
+        <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+      </div>
+
+      <!-- Label and input for game_id -->
+      <div class="form-group">
+        <label for="game_id" class="control-label">
+          Game
+        </label>
+
+          <%= select_tag(:game_id, options_from_collection_for_select(Game.all, :id, :id, @pick.game_id)) %>
+
+      </div>
+
+      <!-- Label and input for pick_id -->
+      <div class="form-group">
+        <label for="pick_id" class="control-label">
+          Pick
+        </label>
+
+        <input type="text" id="pick_id" name="pick_id" placeholder="Pick" class="form-control" value="<%= @pick.pick_id %>">
+      </div>
+
+      <!-- Label and input for final_result -->
+      <input type="hidden" id="final_result" name="final_result" placeholder="Final result" class="form-control" value="<%= @pick.final_result %>">
+
+      <button class="btn btn-success">
+        Create Pick
+      </button>
+      or
+      <a href="/picks">Cancel</a>
+    </form>
+  </div>
+</div>

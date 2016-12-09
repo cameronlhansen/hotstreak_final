@@ -1,0 +1,49 @@
+<!-- Validation failure messages -->
+
+<div><h1>
+  <%=Team.find(@game.favorite_id).name%> vs. <%= Team.find(@game.underdog_id).name%>
+</h1></div>
+
+<div><p>
+  <%= Team.find(@game.favorite_id).name%>
+  is favored by
+  <%= @game.spread%>
+</p></div>
+
+
+<form action="/create_pick" method="post">
+  <div class="row">
+  <div class="col-md-12">
+
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" id="user_id" name="user_id" value="<%= current_user.id %>">
+
+      <!-- Label and input for game_id -->
+      <input type="hidden" id="game_id" name="game_id" value="<%= @game.id %>">
+
+
+
+      <!-- Label and input for pick_id -->
+      <div class="radio">
+        <h3>Pick</h3>
+
+        <label><input type="radio" name="pick_id" value="<%=Team.find(@game.favorite_id).id%>"><%=Team.find(@game.favorite_id).name%></label>
+      </div>
+
+      <div class="radio">
+        <label><input type="radio" name="pick_id" value="<%=Team.find(@game.underdog_id).id%>"><%= Team.find(@game.underdog_id).name%></label>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <button class="btn btn-success">
+    Create Pick
+  </button></form>
+  or
+  <a href="/picks">Cancel</a>

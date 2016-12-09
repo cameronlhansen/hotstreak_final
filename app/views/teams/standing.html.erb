@@ -1,0 +1,36 @@
+<div class="page-header">
+  <h1>
+    Team Records
+  </h1>
+
+  <a href="/teams/" class="btn btn-sm btn-success">View Teams Available for Selection</a>
+  <a href="/teams/new" class="btn btn-sm btn-danger">New Team</a>
+
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table class="table table-striped table-hover">
+      <tr>
+        <th>Divsion</th>
+        <th>Team</th>
+        <th>Wins</th>
+        <th>Loses</th>
+        <th>Diff</th>
+      </tr>
+
+      <% @api_standing.each do |api_standing| %>
+      <% api_standing["divisions"].each do |division| %>
+      <% division["teams"].each do |team| %>
+      <tr>
+        <td><%=division["name"]%></td>
+          <td><%=team["name"]%></td>
+          <td><%=team["wins"]%></td>
+          <td><%=team["losses"]%></td>
+          <td><%=team["point_diff"]%></td>
+        <% end %>
+    <% end %>
+    <% end %>
+  </table>
+</div>
+</div>

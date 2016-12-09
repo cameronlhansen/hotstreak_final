@@ -1,0 +1,52 @@
+<!-- Validation failure messages -->
+<% if @pick.errors.any? %>
+<% @pick.errors.full_messages.each do |message| %>
+<div class="alert alert-dismissable alert-danger">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <%= message %>
+</div>
+<% end %>
+<% end %>
+
+<div class="page-header">
+  <h3>Edit pick for
+    <%= Team.find(@pick.game.favorite_id).name %>
+    vs.
+    <%= Team.find(@pick.game.underdog_id).name%>
+  </h3>
+</div>
+
+<form action="/update_pick/<%= @pick.id %>" method="post">
+<div class="row">
+  <div class="col-md-12">
+      <!-- Hidden input for authenticity token to protect from forgery -->
+      <input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+
+      <!-- Label and input for user_id -->
+      <input type="hidden" id="user_id" name="user_id" placeholder="User" class="form-control" value="<%= @pick.user_id %>">
+
+      <!-- Label and input for game_id -->
+      <input type="hidden" id="game_id" name="game_id" placeholder="Game" class="form-control" value="<%= @pick.game_id %>">
+
+      <!-- Label and input for pick_id -->
+      <input type="hidden" id="pick_id" name="pick_id" placeholder="Pick" class="form-control" value="<%= @pick.pick_id %>">
+
+      <!-- Label and input for pick_id -->
+      <div class="radio">
+        <h3>Pick</h3>
+
+        <label><input type="radio" name="pick_id" value="<%=Team.find(@pick.game.favorite_id).id%>"><%=Team.find(@pick.game.favorite_id).name%></label>
+      </div>
+
+      <div class="radio">
+        <label><input type="radio" name="pick_id" value="<%=Team.find(@pick.game.underdog_id).id%>"><%= Team.find(@pick.game.underdog_id).name%></label>
+      </div>
+    </div>
+  </div>
+
+  <button class="btn btn-warning">
+    Update Pick
+  </button>
+  or
+  <a href="/picks/<%= @pick.id %>">Cancel</a>
+</form>

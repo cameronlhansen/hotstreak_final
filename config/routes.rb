@@ -46,7 +46,7 @@ Rails.application.routes.draw do
   get "/games/:id/edit", :controller => "games", :action => "edit"
   post "/update_game/:id", :controller => "games", :action => "update"
 
-  get "/games/update_score/:id", :controller => "games", :action => "edit_score"
+  get "/edit_score/:id", :controller => "games", :action => "edit_score"
   post "/update_score/:id", :controller => "games", :action => "update_score"
 
 

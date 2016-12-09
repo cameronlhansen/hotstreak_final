@@ -151,7 +151,7 @@
                 <a href="/games/<%= game.id %>" class="btn btn-block btn-default">View Game Picks</a>
 
     <%if game.final_favorite_score == nil && game.game_date < Date.today %>
-                <a href="/games/update_score/<%= game.id %>" class="btn btn-block  btn-danger">Update Score</a>
+                <a href="/edit_score/<%= game.id %>" class="btn btn-block  btn-danger">Update Score</a>
     <%end%>
               </td>
             </tr>
